@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-
-
 # Agent
 header = {
 
@@ -25,6 +23,7 @@ ul_block = close_block.find('ul', class_='nspList active nspCol1')
 # Вот эта штука является ключом ко всему!
 # Спустя час это заработало так, как надо
 links_amount = 9
+massive = []
 for i in range(0, links_amount):
     li_block = ul_block.find_all('li')[i]
     # Header of block
@@ -33,10 +32,16 @@ for i in range(0, links_amount):
     b_of_block = li_block.find('p').text
 
     f = f'{h4_h}.'  f'{b_of_block}' '\n'
+    massive.append(f)
+
+
     # Это работает!
     # print(li_block)
     print(f)
 
-    # Запишем результат в текст доккумент НЕ РАБОТАЕТ!
-    with open("parsed.txt", "w", ) as file:
-        file.write(f)
+    ##ОН УДАЛЯЕТ ВСЕ, ЧТО БЫЛО РАНЬШЕ! writelines позволяет считать данные из массива
+with open('parsed.txt','w') as file:
+    file.writelines(massive)
+
+
+
